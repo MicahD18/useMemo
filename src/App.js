@@ -10,48 +10,54 @@ import './App.css';
 
 function App() {
   // Step 1: add useState for wordIndex and counter
-
+  const [wordIndex, setWordIndex] = useState(0);
+  const [counter, setCounter] = useState(0);
   // Step 2: add array and get index from array
+  let words = ['Welcome', 'to', 'memo', 'demo'];
+  let word = words[wordIndex];
 
   // Step 3: add function that returns the length of each word
+  const handleLetterCount = (word) => {
+    let i = 0;
+    while (i < 1000000000) {
+      i++;
+    }
+    return word.length;
+  }
 
   // FAST
+  const letterCount = useMemo(() => handleLetterCount(word), [word]);
 
   // SLOW
+  // const letterCount = handleLetterCount(word);
 
   return (
     <div className="App">
       <section className="counterContainer">
         <section className="counter">
-          // Step 4: read current word and the length of the word
-          <h1></h1>
+          <h1>"{word}" has {letterCount} letters</h1>
           <div className="wordButtons">
             <button onClick={() => {
-              // set the word index to 0
-
+              setWordIndex(0);
             }}>
               Reset
             </button>
             <button onClick={() => {
-              // add variable that adds 1 to the wordIndex
-              // set the word index to the variable
-
+              const nextWord = wordIndex + 1 === words.length ? 0 : wordIndex + 1
+              setWordIndex(nextWord);
             }}>
               Next word
             </button>
           </div>
           <div>
-            // Step 5: read current number
-            <h1></h1>
+            <h1>{counter}</h1>
             <div className="countButtons">
               <button onClick={() => {
-                // set the counter to 0
-
+                setCounter(0);
               }}>
                 Reset
               </button>
-              // set the counter to increment it by 1
-              <button>
+              <button onClick={() => setCounter(counter + 1)}>
                 Add
               </button>
             </div>
